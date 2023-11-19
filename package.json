@@ -1,0 +1,64 @@
+{
+  "name": "otlp-logger",
+  "version": "0.0.1",
+  "description": "Exports logs to OpenTelemetry Collector using OTLP protocol",
+  "main": "lib/otlp-logger.js",
+  "scripts": {
+    "validate-and-test": "standard | snazzy && tap test/**/*.test.js --coverage-report=lcovonly && tsd",
+    "test": "npm run validate-and-test",
+    "docker-run": "docker compose up",
+    "generate-types": "tsc",
+    "pretest-ci": "npm run generate-types",
+    "pretest": "npm run generate-types",
+    "prepack": "npm run generate-types",
+    "prepare": "husky install"
+  },
+  "author": "Vladimir Adamic <vladimir.adamic@gmail.com>",
+  "repository": "github:Vunovati/otlp-logger",
+  "license": "MIT",
+  "dependencies": {
+    "@opentelemetry/api-logs": "^0.44.0",
+    "@opentelemetry/core": "^1.17.0",
+    "@opentelemetry/exporter-logs-otlp-grpc": "^0.44.0",
+    "@opentelemetry/exporter-logs-otlp-http": "^0.44.0",
+    "@opentelemetry/exporter-logs-otlp-proto": "^0.44.0",
+    "@opentelemetry/resources": "^1.17.0",
+    "@opentelemetry/sdk-logs": "^0.44.0"
+  },
+  "types": "./types/otlp-logger.d.ts",
+  "devDependencies": {
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
+    "@opentelemetry/api": "^1.4.1",
+    "@opentelemetry/instrumentation-http": "^0.44.0",
+    "@opentelemetry/sdk-node": "^0.44.0",
+    "@tapjs/sinon": "^1.1.16",
+    "@types/node": "^20.8.2",
+    "husky": "^8.0.3",
+    "require-inject": "^1.4.4",
+    "snazzy": "^9.0.0",
+    "standard": "^17.1.0",
+    "tap": "^18.5.8",
+    "tar-stream": "^3.1.6",
+    "testcontainers": "^10.2.1",
+    "tsd": "^0.28.1",
+    "typescript": "^5.2.2"
+  },
+  "standard": {
+    "ignore": [
+      "node_modules/"
+    ]
+  },
+  "tsd": {
+    "directory": "./test/types"
+  },
+  "files": [
+    "types",
+    "*.js"
+  ],
+  "tap": {
+    "plugin": [
+      "@tapjs/sinon"
+    ]
+  }
+}
