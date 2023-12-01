@@ -1,0 +1,23 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+exporters:
+  file:
+    path: ./etc/test-logs/otlp-logs.log
+    flush_interval: 1
+
+  logging:
+    verbosity: detailed
+  
+processors:
+  batch:
+
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      processors: []
+      exporters: [logging, file]
