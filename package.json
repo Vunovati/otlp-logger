@@ -1,6 +1,6 @@
 {
   "name": "otlp-logger",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Exports logs to OpenTelemetry Collector using OTLP protocol",
   "main": "lib/otlp-logger.js",
   "scripts": {
