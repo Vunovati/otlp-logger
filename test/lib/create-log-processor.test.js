@@ -2,7 +2,7 @@
 
 const { test } = require('tap')
 
-const createLogProcessor = require('../../lib/create-log-processor')
+const { createLogProcessor } = require('../../lib/create-log-processor')
 const {
   BatchLogRecordProcessor,
   SimpleLogRecordProcessor,
