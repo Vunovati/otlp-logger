@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/Vunovati/otlp-logger/compare/v1.1.0...v1.1.1) (2024-02-07)
+
+
+### Bug Fixes
+
+* use npm install since lockfile is gitignored ([0653862](https://github.com/Vunovati/otlp-logger/commit/065386253b653caf49636c208a42c4ab9894334c))
+
 ## [1.1.0](https://github.com/Vunovati/otlp-logger/compare/v1.0.0...v1.1.0) (2024-02-07)
 
 
