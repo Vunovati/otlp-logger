@@ -17,7 +17,6 @@ const {
 const {
   OTLPLogExporter: HttpExporter
 } = require('@opentelemetry/exporter-logs-otlp-http')
-const { MultiLogRecordProcessor } = require('../../lib/multi-log-processor')
 
 test('createLogProcessor - no params', async ({ type }) => {
   const logProcessor = createLogProcessor()
@@ -118,38 +117,19 @@ test('createLogProcessor - simple with http exporter', async ({ type }) => {
   type(logProcessor._exporter, HttpExporter)
 })
 
-test('createLogProcessor - simple with single logRecordProcessorOption in array', async ({
+test('createLogProcessor - batch with console exporter', async ({
   type
 }) => {
-  const logProcessor = createLogProcessor([
-    {
-      recordProcessorType: 'simple',
-      exporterOptions: {
-        protocol: 'console'
-      }
+  const logProcessor = createLogProcessor({
+    recordProcessorType: 'batch',
+    exporterOptions: {
+      protocol: 'console'
+    },
+    processorConfig: {
+      maxQueueSize: 42
     }
-  ])
+  })
 
-  type(logProcessor, MultiLogRecordProcessor)
-  type(logProcessor.processors[0], SimpleLogRecordProcessor)
-  type(logProcessor.processors[0]._exporter, ConsoleLogRecordExporter)
-})
-
-test('createLogProcessor - batch with single logRecordProcessorOption', async ({
-  type
-}) => {
-  const logProcessor = createLogProcessor([
-    {
-      recordProcessorType: 'batch',
-      exporterOptions: {
-        protocol: 'console'
-      },
-      processorConfig: {
-        maxQueueSize: 42
-      }
-    }
-  ])
-
-  type(logProcessor, MultiLogRecordProcessor)
-  type(logProcessor.processors[0], BatchLogRecordProcessor)
+  type(logProcessor, BatchLogRecordProcessor)
+  type(logProcessor._exporter, ConsoleLogRecordExporter)
 })
