@@ -1,7 +1,7 @@
 'use strict'
 
 const { join } = require('path')
-const { test, before } = require('tap')
+const { test, before, sinon } = require('tap')
 const { Wait, GenericContainer } = require('testcontainers')
 const { extract } = require('tar-stream')
 const { text } = require('node:stream/consumers')
@@ -43,6 +43,7 @@ before(async () => {
 })
 
 test('Log with simple config', async ({ same, hasStrict }) => {
+  sinon.stub(console, 'dir')
   const loggerName = 'test-logger-name'
   const resourceAttributes = {
     'service.name': 'test-service',
@@ -84,6 +85,35 @@ test('Log with simple config', async ({ same, hasStrict }) => {
       recordProcessorType,
       exporterOptions: {
         protocol: 'http/protobuf'
+      }
+    }
+  })
+
+  const multiLogger = getOtlpLogger({
+    loggerName,
+    resourceAttributes,
+    serviceVersion,
+    logRecordProcessorOptions: [{
+      recordProcessorType,
+      exporterOptions: {
+        protocol: 'grpc'
+      }
+    }, {
+      recordProcessorType,
+      exporterOptions: {
+        protocol: 'console'
+      }
+    }]
+  })
+
+  const consoleLogger = getOtlpLogger({
+    loggerName,
+    resourceAttributes,
+    serviceVersion,
+    logRecordProcessorOptions: {
+      recordProcessorType,
+      exporterOptions: {
+        protocol: 'console'
       }
     }
   })
@@ -131,6 +161,20 @@ test('Log with simple config', async ({ same, hasStrict }) => {
     timestamp: testStart
   })
 
+  multiLogger.emit({
+    severityNumber: 4,
+    severityText: 'TRACE',
+    body: 'test multi',
+    timestamp: testStart
+  })
+
+  consoleLogger.emit({
+    severityNumber: 5,
+    severityText: 'TRACE',
+    body: 'test console',
+    timestamp: testStart
+  })
+
   const expectedResourceAttributes = [
     {
       key: 'service.name',
@@ -172,6 +216,24 @@ test('Log with simple config', async ({ same, hasStrict }) => {
       severityNumber: 3,
       severityText: 'TRACE',
       body: { stringValue: 'test protobuf' }
+    },
+    {
+      severityNumber: 4,
+      severityText: 'TRACE',
+      body: { stringValue: 'test multi' }
+    }
+  ]
+
+  const expectedConsoleLines = [
+    {
+      severityNumber: 4,
+      severityText: 'TRACE',
+      body: 'test multi'
+    },
+    {
+      severityNumber: 5,
+      severityText: 'TRACE',
+      body: 'test console'
     }
   ]
 
@@ -213,8 +275,10 @@ test('Log with simple config', async ({ same, hasStrict }) => {
   const content = archivedFileContents.join('\n')
 
   const lines = content.split('\n').filter(Boolean)
+  const consoleLines = console.dir.getCalls().map(call => call.firstArg)
 
   same(lines.length, expectedLines.length, 'correct number of lines')
+  same(consoleLines.length, expectedConsoleLines.length, 'correct number of console lines')
 
   lines.forEach(line => {
     const foundAttributes = JSON.parse(
@@ -245,7 +309,22 @@ test('Log with simple config', async ({ same, hasStrict }) => {
     hasStrict(logRecord, expectedLine, `line ${i} is mapped correctly`)
   }
 
-  await grpcLogger.shutdown()
-  await httpLogger.shutdown()
-  await protobufLogger.shutdown()
+  const consoleLogRecords = consoleLines
+    .sort((a, b) => {
+      return a.severityNumber - b.severityNumber
+    })
+
+  for (let i = 0; i < consoleLogRecords.length; i++) {
+    const logRecord = consoleLogRecords[i]
+    const expectedLine = expectedConsoleLines[i]
+    hasStrict(logRecord, expectedLine, `console line ${i} is mapped correctly`)
+  }
+
+  await Promise.all([
+    grpcLogger.shutdown(),
+    httpLogger.shutdown(),
+    protobufLogger.shutdown(),
+    multiLogger.shutdown(),
+    consoleLogger.shutdown()
+  ])
 })
