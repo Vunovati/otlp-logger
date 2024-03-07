@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.2](https://github.com/Vunovati/otlp-logger/compare/v1.1.1...v1.1.2) (2024-03-07)
+
+
+### Bug Fixes
+
+* creating multiple loggers always returned the same logger ([ec655d8](https://github.com/Vunovati/otlp-logger/commit/ec655d8b84e85c8683cc8b7fa11e219e37831d50))
+* **deps:** bump actions/setup-node from 3 to 4 ([c6887eb](https://github.com/Vunovati/otlp-logger/commit/c6887eb580d81725e283013df564cf19acdc709f))
+* **deps:** bump the production-dependencies group with 5 updates ([9c7c17d](https://github.com/Vunovati/otlp-logger/commit/9c7c17d19d8291ec148f6a3413aff79d1d90039c))
+
 ## [1.1.1](https://github.com/Vunovati/otlp-logger/compare/v1.1.0...v1.1.1) (2024-02-07)
 
 
