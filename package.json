@@ -18,7 +18,6 @@
   "license": "MIT",
   "dependencies": {
     "@opentelemetry/api-logs": "^0.48.0",
-    "@opentelemetry/core": "^1.17.0",
     "@opentelemetry/exporter-logs-otlp-grpc": "^0.48.0",
     "@opentelemetry/exporter-logs-otlp-http": "^0.48.0",
     "@opentelemetry/exporter-logs-otlp-proto": "^0.48.0",
