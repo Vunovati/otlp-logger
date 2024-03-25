@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/Vunovati/otlp-logger/compare/v1.1.2...v1.1.3) (2024-03-25)
+
+
+### Bug Fixes
+
+* **create-log-processor:** accept variants of http/json ([8d9f8f3](https://github.com/Vunovati/otlp-logger/commit/8d9f8f3c15933a5787146266baecedf677261e7f))
+
 ## [1.1.2](https://github.com/Vunovati/otlp-logger/compare/v1.1.1...v1.1.2) (2024-03-07)
 
 
