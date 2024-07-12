@@ -96,7 +96,7 @@ service:
 The collector can then be ran with:
 
 ```bash
-docker run --volume=$(pwd)/otel-collector-config.yaml:/etc/otel-collector-config.yaml:rw --volume=/tmp/test-logs:/etc/test-logs:rw -p 4317:4317 -d otel/opentelemetry-collector-contrib:latest --config=/etc/otel-collector-config.yaml
+docker run --volume=$(pwd)/otel-collector-config.yaml:/etc/otel-collector-config.yaml:rw --volume=/tmp/test-logs:/etc/test-logs:rw -p 4317:4317 -d otel/opentelemetry-collector-contrib:0.103.1 --config=/etc/otel-collector-config.yaml
 ```
 
 Create an index.js file containing
