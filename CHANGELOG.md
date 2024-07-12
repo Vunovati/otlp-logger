@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://github.com/Vunovati/otlp-logger/compare/v1.1.5...v1.1.6) (2024-07-12)
+
+
+### Bug Fixes
+
+* use a previous version of otel-collector-contrib for tests ([10f50be](https://github.com/Vunovati/otlp-logger/commit/10f50be4db3ba0773c52e276579a920ac3c6893e))
+
 ## [1.1.5](https://github.com/Vunovati/otlp-logger/compare/v1.1.4...v1.1.5) (2024-06-26)
 
 
