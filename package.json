@@ -32,7 +32,7 @@
     "@opentelemetry/instrumentation-http": "^0.52.1",
     "@opentelemetry/sdk-node": "^0.52.1",
     "@tapjs/sinon": "^3.0.0",
-    "@types/node": "^20.8.2",
+    "@types/node": "^22.2.0",
     "husky": "^9.0.10",
     "require-inject": "^1.4.4",
     "snazzy": "^9.0.0",
