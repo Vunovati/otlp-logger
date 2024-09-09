@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.6](https://github.com/Vunovati/otlp-logger/compare/v1.1.5...v1.1.6) (2024-09-04)
+
+
+### Bug Fixes
+
+* **deps:** bump the production-dependencies group with 5 updates ([941813e](https://github.com/Vunovati/otlp-logger/commit/941813e8f045f7865ab30cca2562510f8078bc58))
+* use a previous version of otel-collector-contrib for tests ([10f50be](https://github.com/Vunovati/otlp-logger/commit/10f50be4db3ba0773c52e276579a920ac3c6893e))
+
 ## [1.1.5](https://github.com/Vunovati/otlp-logger/compare/v1.1.4...v1.1.5) (2024-06-26)
 
 
