@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.7](https://github.com/Vunovati/otlp-logger/compare/v1.1.6...v1.1.7) (2024-12-16)
+
+
+### Bug Fixes
+
+* **deps:** bump the production-dependencies group across 1 directory with 5 updates ([ee55ca1](https://github.com/Vunovati/otlp-logger/commit/ee55ca19b714c71fb5a7bf159ddea50a71c4805a))
+* **deps:** bump the production-dependencies group with 5 updates ([a4eb3b4](https://github.com/Vunovati/otlp-logger/commit/a4eb3b4e322db313d14324f1aa7829182600e3ec))
+
 ## [1.1.6](https://github.com/Vunovati/otlp-logger/compare/v1.1.5...v1.1.6) (2024-09-04)
 
 
