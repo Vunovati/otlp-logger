@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.9](https://github.com/Vunovati/otlp-logger/compare/v1.1.8...v1.1.9) (2025-04-14)
+
+
+### Bug Fixes
+
+* **deps:** bump the production-dependencies group with 6 updates ([#97](https://github.com/Vunovati/otlp-logger/issues/97)) ([e8f36c3](https://github.com/Vunovati/otlp-logger/commit/e8f36c30a2e6d5d85acfefd82b501bd8ba5f4976))
+* **deps:** remove dependency - sinon ([#100](https://github.com/Vunovati/otlp-logger/issues/100)) ([eae0edc](https://github.com/Vunovati/otlp-logger/commit/eae0edc2973aded5aee0f1197f0e18a9d49bd3b0))
+
 ## [1.1.8](https://github.com/Vunovati/otlp-logger/compare/v1.1.7...v1.1.8) (2025-01-29)
 
 
