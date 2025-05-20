@@ -17,12 +17,12 @@
   "repository": "github:Vunovati/otlp-logger",
   "license": "MIT",
   "dependencies": {
-    "@opentelemetry/api-logs": "^0.200.0",
-    "@opentelemetry/exporter-logs-otlp-grpc": "^0.200.0",
-    "@opentelemetry/exporter-logs-otlp-http": "^0.200.0",
-    "@opentelemetry/exporter-logs-otlp-proto": "^0.200.0",
+    "@opentelemetry/api-logs": "^0.201.1",
+    "@opentelemetry/exporter-logs-otlp-grpc": "^0.201.1",
+    "@opentelemetry/exporter-logs-otlp-http": "^0.201.1",
+    "@opentelemetry/exporter-logs-otlp-proto": "^0.201.1",
     "@opentelemetry/resources": "^2.0.0",
-    "@opentelemetry/sdk-logs": "^0.200.0"
+    "@opentelemetry/sdk-logs": "^0.201.1"
   },
   "types": "./types/otlp-logger.d.ts",
   "devDependencies": {
