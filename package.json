@@ -31,7 +31,7 @@
     "@opentelemetry/api": "^1.4.1",
     "@opentelemetry/instrumentation-http": "^0.202.0",
     "@opentelemetry/sdk-node": "^0.202.0",
-    "@types/node": "^22.2.0",
+    "@types/node": "^24.0.0",
     "husky": "^9.0.10",
     "require-inject": "^1.4.4",
     "snazzy": "^9.0.0",
