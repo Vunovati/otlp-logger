@@ -29,9 +29,9 @@
     "@commitlint/cli": "^19.0.3",
     "@commitlint/config-conventional": "^19.0.3",
     "@opentelemetry/api": "^1.4.1",
-    "@opentelemetry/instrumentation-http": "^0.202.0",
-    "@opentelemetry/sdk-node": "^0.202.0",
-    "@types/node": "^22.2.0",
+    "@opentelemetry/instrumentation-http": "^0.203.0",
+    "@opentelemetry/sdk-node": "^0.203.0",
+    "@types/node": "^24.3.0",
     "husky": "^9.0.10",
     "require-inject": "^1.4.4",
     "snazzy": "^9.0.0",
@@ -39,7 +39,7 @@
     "tap": "^21.1.0",
     "tar-stream": "^3.1.6",
     "testcontainers": "^11.0.0",
-    "tsd": "^0.32.0",
+    "tsd": "^0.33.0",
     "typescript": "^5.2.2"
   },
   "standard": {
