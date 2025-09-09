@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.12](https://github.com/Vunovati/otlp-logger/compare/v1.1.11...v1.1.12) (2025-09-09)
+
+
+### Bug Fixes
+
+* **deps:** bump actions/checkout from 4 to 5 ([#114](https://github.com/Vunovati/otlp-logger/issues/114)) ([d00880f](https://github.com/Vunovati/otlp-logger/commit/d00880f6da3a933242941a9768a90d9759bf0258))
+* **deps:** bump the production-dependencies group with 5 updates ([#115](https://github.com/Vunovati/otlp-logger/issues/115)) ([fee0641](https://github.com/Vunovati/otlp-logger/commit/fee0641363bd144ec234337a4f896c7e5bc949e5))
+
 ## [1.1.11](https://github.com/Vunovati/otlp-logger/compare/v1.1.10...v1.1.11) (2025-08-21)
 
 
