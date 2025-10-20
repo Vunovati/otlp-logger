@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.13](https://github.com/Vunovati/otlp-logger/compare/v1.1.12...v1.1.13) (2025-10-20)
+
+
+### Bug Fixes
+
+* **deps:** bump actions/setup-node from 4 to 5 ([#121](https://github.com/Vunovati/otlp-logger/issues/121)) ([36aa100](https://github.com/Vunovati/otlp-logger/commit/36aa100d1051c912215efbadded88bfc1213909c))
+* **deps:** bump the production-dependencies group with 5 updates ([#118](https://github.com/Vunovati/otlp-logger/issues/118)) ([4863c75](https://github.com/Vunovati/otlp-logger/commit/4863c75bfe1e11cdcddc0a328c9350e183458437))
+
 ## [1.1.12](https://github.com/Vunovati/otlp-logger/compare/v1.1.11...v1.1.12) (2025-09-09)
 
 
