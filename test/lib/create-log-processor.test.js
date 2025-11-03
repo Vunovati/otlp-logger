@@ -1,6 +1,7 @@
 'use strict'
 
-const { test } = require('tap')
+const { test } = require('node:test')
+const assert = require('node:assert')
 
 const { createLogProcessor } = require('../../lib/create-log-processor')
 const {
@@ -18,28 +19,28 @@ const {
   OTLPLogExporter: HttpExporter
 } = require('@opentelemetry/exporter-logs-otlp-http')
 
-test('createLogProcessor - no params', async ({ type }) => {
+test('createLogProcessor - no params', async () => {
   const logProcessor = createLogProcessor()
 
-  type(logProcessor, BatchLogRecordProcessor)
+  assert.ok(logProcessor instanceof BatchLogRecordProcessor)
 })
 
-test('createLogProcessor - empty opts', async ({ type }) => {
+test('createLogProcessor - empty opts', async () => {
   const logProcessor = createLogProcessor({})
 
-  type(logProcessor, BatchLogRecordProcessor)
+  assert.ok(logProcessor instanceof BatchLogRecordProcessor)
 })
 
-test('createLogProcessor - simple', async ({ type }) => {
+test('createLogProcessor - simple', async () => {
   const logProcessor = createLogProcessor({
     recordProcessorType: 'simple'
   })
 
-  type(logProcessor, SimpleLogRecordProcessor)
-  type(logProcessor._exporter, ProtoExporter)
+  assert.ok(logProcessor instanceof SimpleLogRecordProcessor)
+  assert.ok(logProcessor._exporter instanceof ProtoExporter)
 })
 
-test('createLogProcessor - simple with console exporter', async ({ type }) => {
+test('createLogProcessor - simple with console exporter', async () => {
   const logProcessor = createLogProcessor({
     recordProcessorType: 'simple',
     exporterOptions: {
@@ -47,11 +48,11 @@ test('createLogProcessor - simple with console exporter', async ({ type }) => {
     }
   })
 
-  type(logProcessor, SimpleLogRecordProcessor)
-  type(logProcessor._exporter, ConsoleLogRecordExporter)
+  assert.ok(logProcessor instanceof SimpleLogRecordProcessor)
+  assert.ok(logProcessor._exporter instanceof ConsoleLogRecordExporter)
 })
 
-test('createLogProcessor - simple with grpc exporter', async ({ type }) => {
+test('createLogProcessor - simple with grpc exporter', async () => {
   const logProcessor = createLogProcessor({
     recordProcessorType: 'simple',
     exporterOptions: {
@@ -59,20 +60,16 @@ test('createLogProcessor - simple with grpc exporter', async ({ type }) => {
     }
   })
 
-  type(logProcessor, SimpleLogRecordProcessor)
-  type(logProcessor._exporter, GrpcExporter)
+  assert.ok(logProcessor instanceof SimpleLogRecordProcessor)
+  assert.ok(logProcessor._exporter instanceof GrpcExporter)
 })
 
-test('createLogProcessor - simple with grpc exporter set as env var', async ({
-  type,
-  before,
-  after
-}) => {
-  before(() => {
+test('createLogProcessor - simple with grpc exporter set as env var', async (t) => {
+  t.before(() => {
     process.env.OTEL_EXPORTER_OTLP_LOGS_PROTOCOL = 'grpc'
   })
 
-  after(() => {
+  t.after(() => {
     delete process.env.OTEL_EXPORTER_OTLP_LOGS_PROTOCOL
   })
 
@@ -80,20 +77,16 @@ test('createLogProcessor - simple with grpc exporter set as env var', async ({
     recordProcessorType: 'simple'
   })
 
-  type(logProcessor, SimpleLogRecordProcessor)
-  type(logProcessor._exporter, GrpcExporter)
+  assert.ok(logProcessor instanceof SimpleLogRecordProcessor)
+  assert.ok(logProcessor._exporter instanceof GrpcExporter)
 })
 
-test('createLogProcessor - simple with http exporter set as env var', async ({
-  type,
-  before,
-  after
-}) => {
-  before(() => {
+test('createLogProcessor - simple with http exporter set as env var', async (t) => {
+  t.before(() => {
     process.env.OTEL_EXPORTER_OTLP_PROTOCOL = 'http'
   })
 
-  after(() => {
+  t.after(() => {
     delete process.env.OTEL_EXPORTER_OTLP_PROTOCOL
   })
 
@@ -101,11 +94,11 @@ test('createLogProcessor - simple with http exporter set as env var', async ({
     recordProcessorType: 'simple'
   })
 
-  type(logProcessor, SimpleLogRecordProcessor)
-  type(logProcessor._exporter, HttpExporter)
+  assert.ok(logProcessor instanceof SimpleLogRecordProcessor)
+  assert.ok(logProcessor._exporter instanceof HttpExporter)
 })
 
-test('createLogProcessor - simple with http exporter', async ({ type }) => {
+test('createLogProcessor - simple with http exporter', async () => {
   const logProcessor = createLogProcessor({
     recordProcessorType: 'simple',
     exporterOptions: {
@@ -113,13 +106,11 @@ test('createLogProcessor - simple with http exporter', async ({ type }) => {
     }
   })
 
-  type(logProcessor, SimpleLogRecordProcessor)
-  type(logProcessor._exporter, HttpExporter)
+  assert.ok(logProcessor instanceof SimpleLogRecordProcessor)
+  assert.ok(logProcessor._exporter instanceof HttpExporter)
 })
 
-test('createLogProcessor - batch with console exporter', async ({
-  type
-}) => {
+test('createLogProcessor - batch with console exporter', async () => {
   const logProcessor = createLogProcessor({
     recordProcessorType: 'batch',
     exporterOptions: {
@@ -130,6 +121,6 @@ test('createLogProcessor - batch with console exporter', async ({
     }
   })
 
-  type(logProcessor, BatchLogRecordProcessor)
-  type(logProcessor._exporter, ConsoleLogRecordExporter)
+  assert.ok(logProcessor instanceof BatchLogRecordProcessor)
+  assert.ok(logProcessor._exporter instanceof ConsoleLogRecordExporter)
 })

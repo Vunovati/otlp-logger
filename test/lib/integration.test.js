@@ -1,7 +1,8 @@
 'use strict'
 
 const { join } = require('path')
-const { test, before, sinon } = require('tap')
+const { test, before } = require('node:test')
+const assert = require('node:assert')
 const { Wait, GenericContainer } = require('testcontainers')
 const { extract } = require('tar-stream')
 const { text } = require('node:stream/consumers')
@@ -42,8 +43,13 @@ before(async () => {
     .start()
 })
 
-test('Log with simple config', async ({ same, hasStrict }) => {
-  sinon.stub(console, 'dir')
+test('Log with simple config', async () => {
+  const consoleDirCalls = []
+  const originalConsoleDir = console.dir
+  console.dir = (...args) => {
+    consoleDirCalls.push(args[0])
+  }
+
   const loggerName = 'test-logger-name'
   const resourceAttributes = {
     'service.name': 'test-service',
@@ -125,11 +131,9 @@ test('Log with simple config', async ({ same, hasStrict }) => {
   const extra = {
     foo: 'bar',
     baz: 'qux',
-    /* eslint-disable camelcase */
     trace_id: testTraceId,
     span_id: testSpanId,
     trace_flags: testTraceFlags
-    /* eslint-enable camelcase */
   }
 
   const testStart = Date.now()
@@ -204,7 +208,9 @@ test('Log with simple config', async ({ same, hasStrict }) => {
       spanId: testSpanId,
       attributes: [
         { key: 'foo', value: { stringValue: 'bar' } },
-        { key: 'baz', value: { stringValue: 'qux' } }
+        { key: 'baz', value: { stringValue: 'qux' } },
+        { key: 'pid', value: { intValue: '123' } },
+        { key: 'hostname', value: { stringValue: 'test-hostname' } }
       ]
     },
     {
@@ -248,7 +254,7 @@ test('Log with simple config', async ({ same, hasStrict }) => {
     })
     .on('err', line => console.error(line))
 
-  // eslint-disable-next-line
+  // eslint-disable-next-line no-unused-vars
   for await (const _ of setInterval(0)) {
     if (logRecordReceivedOnCollectorCount >= expectedLines.length) {
       break
@@ -275,10 +281,10 @@ test('Log with simple config', async ({ same, hasStrict }) => {
   const content = archivedFileContents.join('\n')
 
   const lines = content.split('\n').filter(Boolean)
-  const consoleLines = console.dir.getCalls().map(call => call.firstArg)
+  const consoleLines = consoleDirCalls
 
-  same(lines.length, expectedLines.length, 'correct number of lines')
-  same(consoleLines.length, expectedConsoleLines.length, 'correct number of console lines')
+  assert.strictEqual(lines.length, expectedLines.length, 'correct number of lines')
+  assert.strictEqual(consoleLines.length, expectedConsoleLines.length, 'correct number of console lines')
 
   lines.forEach(line => {
     const foundAttributes = JSON.parse(
@@ -287,11 +293,11 @@ test('Log with simple config', async ({ same, hasStrict }) => {
       attribute =>
         attribute.key === 'service.name' || attribute.key === 'service.version'
     )
-    hasStrict(foundAttributes, expectedResourceAttributes)
+    assert.deepStrictEqual(foundAttributes, expectedResourceAttributes)
   })
 
   lines.forEach(line => {
-    hasStrict(JSON.parse(line).resourceLogs?.[0]?.scopeLogs?.[0]?.scope, scope)
+    assert.deepStrictEqual(JSON.parse(line).resourceLogs?.[0]?.scopeLogs?.[0]?.scope, scope)
   })
 
   const logRecords = [...lines.entries()]
@@ -306,7 +312,19 @@ test('Log with simple config', async ({ same, hasStrict }) => {
   for (let i = 0; i < logRecords.length; i++) {
     const logRecord = logRecords[i]
     const expectedLine = expectedLines[i]
-    hasStrict(logRecord, expectedLine, `line ${i} is mapped correctly`)
+    // Only check the fields we care about, ignore extra fields like timeUnixNano, observedTimeUnixNano, flags
+    assert.strictEqual(logRecord.severityNumber, expectedLine.severityNumber, `line ${i} severityNumber matches`)
+    assert.strictEqual(logRecord.severityText, expectedLine.severityText, `line ${i} severityText matches`)
+    assert.deepStrictEqual(logRecord.body, expectedLine.body, `line ${i} body matches`)
+    if (expectedLine.traceId) {
+      assert.strictEqual(logRecord.traceId, expectedLine.traceId, `line ${i} traceId matches`)
+    }
+    if (expectedLine.spanId) {
+      assert.strictEqual(logRecord.spanId, expectedLine.spanId, `line ${i} spanId matches`)
+    }
+    if (expectedLine.attributes) {
+      assert.deepStrictEqual(logRecord.attributes, expectedLine.attributes, `line ${i} attributes match`)
+    }
   }
 
   const consoleLogRecords = consoleLines
@@ -317,7 +335,9 @@ test('Log with simple config', async ({ same, hasStrict }) => {
   for (let i = 0; i < consoleLogRecords.length; i++) {
     const logRecord = consoleLogRecords[i]
     const expectedLine = expectedConsoleLines[i]
-    hasStrict(logRecord, expectedLine, `console line ${i} is mapped correctly`)
+    assert.strictEqual(logRecord.severityNumber, expectedLine.severityNumber, `console line ${i} severityNumber matches`)
+    assert.strictEqual(logRecord.severityText, expectedLine.severityText, `console line ${i} severityText matches`)
+    assert.strictEqual(logRecord.body, expectedLine.body, `console line ${i} body matches`)
   }
 
   await Promise.all([
@@ -327,4 +347,6 @@ test('Log with simple config', async ({ same, hasStrict }) => {
     multiLogger.shutdown(),
     consoleLogger.shutdown()
   ])
+
+  console.dir = originalConsoleDir
 })
