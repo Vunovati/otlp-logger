@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.0.0](https://github.com/Vunovati/otlp-logger/compare/v1.1.13...v2.0.0) (2026-02-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* OTEL_NODE_RESOURCE_DETECTORS env var now controls resource detection. Previously ignored, may change behavior for users who had it set for other instrumentation.
+
+### Features
+
+* add support for env var OTEL_NODE_RESOURCE_DETECTORS ([#130](https://github.com/Vunovati/otlp-logger/issues/130)) ([46a00b7](https://github.com/Vunovati/otlp-logger/commit/46a00b791d5ab519af5cf27d7d32ce5babdf6abd))
+
+
+### Bug Fixes
+
+* **deps:** bump actions/checkout from 5 to 6 ([#126](https://github.com/Vunovati/otlp-logger/issues/126)) ([484d2fe](https://github.com/Vunovati/otlp-logger/commit/484d2fe98bb0b73d61945358d9646ff905024ee8))
+* **deps:** bump the production-dependencies group with 5 updates ([#124](https://github.com/Vunovati/otlp-logger/issues/124)) ([65c1c01](https://github.com/Vunovati/otlp-logger/commit/65c1c013777dfaf8666a78fd53a0fbd39981ceef))
+
 ## [1.1.13](https://github.com/Vunovati/otlp-logger/compare/v1.1.12...v1.1.13) (2025-10-20)
 
 
