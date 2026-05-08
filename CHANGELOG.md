@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0](https://github.com/Vunovati/otlp-logger/compare/v2.0.0...v2.1.0) (2026-05-08)
+
+
+### Features
+
+* **ci:** test with node26 ([#135](https://github.com/Vunovati/otlp-logger/issues/135)) ([8e2d7e5](https://github.com/Vunovati/otlp-logger/commit/8e2d7e570985b8621e54f965e6369f897746f24e))
+
+
+### Bug Fixes
+
+* **deps:** bump the production-dependencies group across 1 directory with 5 updates ([#131](https://github.com/Vunovati/otlp-logger/issues/131)) ([98a8bfb](https://github.com/Vunovati/otlp-logger/commit/98a8bfbf7767e88b4b1f258405a9c12752c48e2c))
+
 ## [2.0.0](https://github.com/Vunovati/otlp-logger/compare/v1.1.13...v2.0.0) (2026-02-24)
 
 
